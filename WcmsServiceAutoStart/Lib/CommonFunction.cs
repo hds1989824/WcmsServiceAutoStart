@@ -18,7 +18,7 @@ namespace WcmsServiceAutoStart
         public static void WriteLog(string ex)
 		{
             //string logFileDirectory = HttpContext.Current.Server.MapPath("~/AutoStartLog/");
-            string logFileDirectory = System.Environment.CurrentDirectory;
+            string logFileDirectory = System.IO.Directory.GetCurrentDirectory()+"/AutoStartLog/";
 			Object thisLock = new Object();
 			if (!Directory.Exists(logFileDirectory))
 				Directory.CreateDirectory(logFileDirectory);
@@ -27,7 +27,6 @@ namespace WcmsServiceAutoStart
 			sb.AppendLine("********************");
 			sb.AppendLine("[LogTime]" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sb.AppendLine(ex);
-			System.Diagnostics.Trace.WriteLine("---LZ---" + sb.ToString());
 			lock (thisLock)
 			{
 				File.AppendAllText(logFilePath, sb.ToString());

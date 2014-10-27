@@ -24,9 +24,10 @@ namespace WcmsServiceAutoStart
    
         public void GetStatus1()
         {
-            for (int i = 0; i < 100;i++ )
+          //  for (int i = 0; i < 100;i++ )
+           while(true)
             {
-                string status1 = ShowSelectStutus("TeamViewer9");
+                string status1 = ShowSelectStutus("WCMSRest");
                 if (status1 == "Stopped")
                 {
                     sc.Start();
@@ -34,39 +35,51 @@ namespace WcmsServiceAutoStart
                     sc.WaitForStatus(ServiceControllerStatus.Running);
                     status1 = ShowSelectStutus("WCMSRest");
                     CommonFunction.WriteLog("WCMSRest 已经被启动");
-                    Debug.WriteLine("---LZ---" + "已经启动   " + status1);
+                    Debug.WriteLine("---LZ---" + "WCMSRest 已经被启动   " + status1);
                 }
                 Thread.Sleep(5000);
             }
         }
         public void GetStatus2()
         {
-            for (int i = 0; i < 100; i++)
+            //  for (int i = 0; i < 100;i++ )
+            while (true)
             {
                 string status2 = ShowSelectStutus("WCMSStorages");
                 if (status2 == "Stopped")
                 {
-                    sc.Start();
-                    Debug.WriteLine("---LZ---" + "正在启动WCMSStorages   " + status2);
-                    sc.WaitForStatus(ServiceControllerStatus.Running);
-                    status2 = ShowSelectStutus("WCMSStorages");
-                    Debug.WriteLine("---LZ---" + "已经启动   " + status2);
+                    try
+                    {
+                        sc.Start();
+                        Debug.WriteLine("---LZ---" + "正在启动WCMSStorages   " + status2);
+
+                        sc.WaitForStatus(ServiceControllerStatus.Running);
+                        status2 = ShowSelectStutus("WCMSStorages");
+                        CommonFunction.WriteLog("WCMSStorages 已经被启动");
+                        Debug.WriteLine("---LZ---" + "正在启动WCMSStorages  " + status2);
+                    }
+                    catch (Exception ex) {
+                        CommonFunction.WriteLog(ex.ToString());
+                    }
+                   
                 }
                 Thread.Sleep(5000);
             }
         }
         public void GetStatus3()
         {
-            for (int i = 0; i < 100; i++)
+          //  for (int i = 0; i < 100;i++ )
+           while(true)
             {
-                string status3 = ShowSelectStutus("WCMSTransmitors");
+                 string status3 = ShowSelectStutus("WCMSTransmitors");
                 if (status3 == "Stopped")
                 {
                     sc.Start();
                     Debug.WriteLine("---LZ---" + "正在启动WCMSTransmitors   " + status3);
                     sc.WaitForStatus(ServiceControllerStatus.Running);
                     status3 = ShowSelectStutus("WCMSTransmitors");
-                    Debug.WriteLine("---LZ---" + "已经启动   " + status3);
+                    CommonFunction.WriteLog("WCMSTransmitors 已经被启动");
+                    Debug.WriteLine("---LZ---" + "WCMSTransmitors 已经被启动   " + status3);
                 }
                 Thread.Sleep(5000);
             }
