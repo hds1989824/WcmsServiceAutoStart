@@ -30,12 +30,21 @@ namespace WcmsServiceAutoStart
                 string status1 = ShowSelectStutus("WCMSRest");
                 if (status1 == "Stopped")
                 {
-                    sc.Start();
+                    try
+                    {
+                        sc.Start();
                     Debug.WriteLine("---LZ---" + "正在启动WCMSRest   " + status1);
                     sc.WaitForStatus(ServiceControllerStatus.Running);
                     status1 = ShowSelectStutus("WCMSRest");
+                    label7.Text = status1;
                     CommonFunction.WriteLog("WCMSRest 已经被启动");
                     Debug.WriteLine("---LZ---" + "WCMSRest 已经被启动   " + status1);
+                    }
+                    catch(Exception ex)
+                    {
+                        CommonFunction.WriteLog(ex.ToString());
+                    }
+                    
                 }
                 Thread.Sleep(5000);
             }
@@ -52,9 +61,9 @@ namespace WcmsServiceAutoStart
                     {
                         sc.Start();
                         Debug.WriteLine("---LZ---" + "正在启动WCMSStorages   " + status2);
-
                         sc.WaitForStatus(ServiceControllerStatus.Running);
                         status2 = ShowSelectStutus("WCMSStorages");
+                        label8.Text = status2;
                         CommonFunction.WriteLog("WCMSStorages 已经被启动");
                         Debug.WriteLine("---LZ---" + "正在启动WCMSStorages  " + status2);
                     }
@@ -74,12 +83,22 @@ namespace WcmsServiceAutoStart
                  string status3 = ShowSelectStutus("WCMSTransmitors");
                 if (status3 == "Stopped")
                 {
-                    sc.Start();
+
+                    try
+                    { 
+                        sc.Start();
                     Debug.WriteLine("---LZ---" + "正在启动WCMSTransmitors   " + status3);
                     sc.WaitForStatus(ServiceControllerStatus.Running);
                     status3 = ShowSelectStutus("WCMSTransmitors");
+                    label9.Text = status3;
                     CommonFunction.WriteLog("WCMSTransmitors 已经被启动");
                     Debug.WriteLine("---LZ---" + "WCMSTransmitors 已经被启动   " + status3);
+                    }
+                    catch(Exception ex)
+                    {
+                        CommonFunction.WriteLog(ex.ToString());
+                    }
+                   
                 }
                 Thread.Sleep(5000);
             }
@@ -122,6 +141,7 @@ namespace WcmsServiceAutoStart
             }
             return serviceStutus;
         }
+ 
        
     }
 }
